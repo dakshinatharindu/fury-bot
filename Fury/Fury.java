@@ -64,8 +64,9 @@ public class Fury extends Bot {
 
         //**** gun ******************//
         // HeadOnTargeting there's nothing I can say about this
-        if(getGunTurnRemaining() == 0 && myEnergy > 1) {
+        if(getGunTurnRemaining() == 0 && myEnergy > 3) {
             setFire( Math.min(Math.min(myEnergy/6d, 1300d/distanceToTarget), target.energy/3d) );
+            System.out.println("target.id: " + target.pos);
         }
         setTurnGunLeft(normalizeRelativeAngle(calcAngle(target.pos, myPos) - getGunDirection()));
 
@@ -97,30 +98,13 @@ public class Fury extends Bot {
 
         } else {
 
-            // just the normal goTo stuff
-//            nextDestination.x = 400;
-//            nextDestination.y = 300;
+
             double angle = calcAngle(nextDestination, myPos) - getDirection();
-//            System.out.println("myPos: " + myPos);
-//            System.out.println("nextDestination: " + nextDestination);
-//            System.out.println("currentDirection: " + getDirection());
-//            System.out.println("targetDirection: " + calcAngle(nextDestination, myPos));
-//            System.out.println("angle: " + angle);
-//            System.out.println("normalizeRelativeAngle(angle): " + normalizeRelativeAngle(angle));
             double direction = 1;
             angle = normalizeRelativeAngle(angle);
-//            System.out.println("angle: " + angle);
-//            if(Math.cos(Math.toRadians(angle)) < 0) {
-//                angle += 180;
-//                direction = -1;
-//            }
-//            System.out.println("angle: " + angle);
-//            System.out.println("distanceToNextDestination: " + distanceToNextDestination*direction);
             setForward(distanceToNextDestination * direction);
             setTurnLeft(angle);
-            // hitting walls isn't a good idea, but HawkOnFire still does it pretty often
-//            setMaxSpeed(Math.abs(Math.toRadians(angle)) > 1 ? 0 : 8d);
-            setMaxSpeed(8d);
+            setMaxSpeed(6d);
         }
     }
 
